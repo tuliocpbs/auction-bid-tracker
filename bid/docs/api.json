@@ -1,0 +1,347 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API to create a online auction system which will allow users to concurrently bid on items for sale",
+    "version": "1.0.0",
+    "title": "Online auction system"
+  },
+  "host": "localhost:5001",
+  "basePath": "/api/v1",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/bid": {
+      "put": {
+        "tags": [
+          "Bid"
+        ],
+        "summary": "Insert a bid",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "payload",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "user",
+                "item",
+                "value"
+              ],
+              "properties": {
+                "user": {
+                  "type": "string",
+                  "example": "user1"
+                },
+                "item": {
+                  "type": "string",
+                  "example": "item1"
+                },
+                "value": {
+                  "type": "number",
+                  "example": 5000
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Insert new bid",
+            "schema": {
+              "$ref": "#/definitions/BidInsertOK"
+            }
+          },
+          "400": {
+            "description": "Invalid payload",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Unexpected error on server",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Bid"
+        ],
+        "summary": "Get a unique bid by user and item",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "payload",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "function",
+                "arguments"
+              ],
+              "properties": {
+                "user": {
+                  "type": "string",
+                  "example": "user1"
+                },
+                "item": {
+                  "type": "string",
+                  "example": "item1"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bid found",
+            "schema": {
+              "$ref": "#/definitions/BidInsertFound"
+            }
+          },
+          "404": {
+            "description": "Bid not found",
+            "schema": {
+              "$ref": "#/definitions/BidInsertNotFound"
+            }
+          },
+          "500": {
+            "description": "Unexpected error on server",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Bid"
+        ],
+        "summary": "Delete a bid",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "payload",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "user",
+                "item"
+              ],
+              "properties": {
+                "user": {
+                  "type": "string",
+                  "example": "user1"
+                },
+                "item": {
+                  "type": "string",
+                  "example": "item1"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bid deleted",
+            "schema": {
+              "$ref": "#/definitions/BidDeleted"
+            }
+          },
+          "400": {
+            "description": "Bid not found",
+            "schema": {
+              "$ref": "#/definitions/BidInsertNotFound"
+            }
+          },
+          "500": {
+            "description": "Unexpected error on server",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/bids": {
+      "get": {
+        "tags": [
+          "Bid"
+        ],
+        "summary": "Get all bids",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Job inserted in queue",
+            "schema": {
+              "$ref": "#/definitions/BidsFound"
+            }
+          },
+          "500": {
+            "description": "Unexpected error on server",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "BidInsertOK": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "ok"
+        },
+        "msg": {
+          "type": "string",
+          "example": "Job inserted on queue"
+        }
+      }
+    },
+    "BidInsertFound": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "ok"
+        },
+        "msg": {
+          "type": "string",
+          "example": "bid found"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "user": {
+              "type": "string"
+            },
+            "item": {
+              "type": "string"
+            },
+            "value": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "BidInsertNotFound": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "msg": {
+          "type": "string",
+          "example": "bid not found"
+        },
+        "data": {
+          "type": "object",
+          "example": "None"
+        }
+      }
+    },
+    "BidDeleted": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "ok"
+        },
+        "msg": {
+          "type": "string",
+          "example": "bid deleted"
+        }
+      }
+    },
+    "BidsFound": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "ok"
+        },
+        "msg": {
+          "type": "string",
+          "example": "bids found"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "user": {
+                "type": "string"
+              },
+              "item": {
+                "type": "string"
+              },
+              "value": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
+    },
+    "ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Api-Key",
+      "in": "header"
+    }
+  }
+}
