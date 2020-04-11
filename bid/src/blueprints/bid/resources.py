@@ -4,7 +4,7 @@ from threading import Lock
 
 from flask import jsonify, request
 from flask_restful import Resource, Api
-from schematics.exceptions import ValidationError
+from schematics.exceptions import ModelValidationError
 
 from src.utils.logger import logger
 from src.utils.api_key import authorize
@@ -90,7 +90,7 @@ class BidResource(Resource):
             
             return {'status': 'ok', 'msg': 'Bid created/updated'}, http.HTTPStatus.CREATED
 
-        except ValidationError as e:
+        except ModelValidationError as e:
             logger.error(f'Error in payload validation: {repr(e)}')
             return {'status': 'error', 'msg': repr(e)}, http.HTTPStatus.BAD_REQUEST
         
