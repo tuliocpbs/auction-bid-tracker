@@ -1,12 +1,12 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "API to create a online auction system which will allow users to concurrently bid on items for sale",
+    "description": "RestAPI to interacte with Bid's data",
     "version": "1.0.0",
-    "title": "Online auction system"
+    "title": "Bid's RestAPI"
   },
   "host": "localhost:5001",
-  "basePath": "/api/v1",
+  "basePath": "/v1",
   "schemes": [
     "http"
   ],
