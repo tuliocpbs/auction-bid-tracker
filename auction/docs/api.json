@@ -1,0 +1,253 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API to create a online auction system which will allow users to concurrently bid on items for sale",
+    "version": "1.0.0",
+    "title": "Online auction system"
+  },
+  "host": "localhost:5000",
+  "basePath": "/api/v1",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/bidsofanitem": {
+      "get": {
+        "tags": [
+          "Auction"
+        ],
+        "summary": "Get all bids with a specific item",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "payload",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "item"
+              ],
+              "properties": {
+                "item": {
+                  "type": "string",
+                  "example": "item1"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bids found",
+            "schema": {
+              "$ref": "#/definitions/BidsFound"
+            }
+          },
+          "500": {
+            "description": "Unexpected error on server",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/currentlywinnig": {
+      "get": {
+        "tags": [
+          "Auction"
+        ],
+        "summary": "Get the currently winner of a specif item",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "payload",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "item"
+              ],
+              "properties": {
+                "item": {
+                  "type": "string",
+                  "example": "item1"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Currently winning",
+            "schema": {
+              "$ref": "#/definitions/CurrentlyWinning"
+            }
+          },
+          "500": {
+            "description": "Unexpected error on server",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/itemswithuserbids": {
+      "get": {
+        "tags": [
+          "Auction"
+        ],
+        "summary": "Get all items that has users bids",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "payload",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "user"
+              ],
+              "properties": {
+                "user": {
+                  "type": "string",
+                  "example": "user1"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Job inserted in queue",
+            "schema": {
+              "$ref": "#/definitions/Itemswithuserbids"
+            }
+          },
+          "500": {
+            "description": "Unexpected error on server",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "BidsFound": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "ok"
+        },
+        "msg": {
+          "type": "string",
+          "example": "bids found"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "user": {
+                "type": "string"
+              },
+              "item": {
+                "type": "string"
+              },
+              "value": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
+    },
+    "CurrentlyWinning": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "ok"
+        },
+        "msg": {
+          "type": "string",
+          "example": "currently winning"
+        },
+        "data": {
+          "type": "string",
+          "example": "user1"
+        }
+      }
+    },
+    "Itemswithuserbids": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "ok"
+        },
+        "msg": {
+          "type": "string",
+          "example": "items found"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": [
+              "item1",
+              "item2"
+            ]
+          }
+        }
+      }
+    },
+    "ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Api-Key",
+      "in": "header"
+    }
+  }
+}
