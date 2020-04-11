@@ -21,11 +21,26 @@ class BidsResource(Resource):
 
     def get(self):
         try:
-            return {'status': 'ok', 'msg': 'bids found', 'data': [bid.to_primitive() for bid in bids]}, http.HTTPStatus.OK
+            payload = request.get_json() or dict()
+
+            bids_found = self.get_bids_by_item_or_user(item=payload.get('item', None), user=payload.get('user', None))
+
+            return {'status': 'ok', 'msg': 'bids found', 'data': [i.to_primitive() for i in bids_found]}, http.HTTPStatus.OK
 
         except Exception as e:
             logger.error(f'Unexpected error {repr(e)}')
             return {'status': 'error', 'msg': repr(e)}, http.HTTPStatus.INTERNAL_SERVER_ERROR
+
+    def get_bids_by_item_or_user(self, item, user):
+
+        if item and user:
+            return [bid for bid in bids if bid.item == item and bid.user == user]
+        elif item:
+            return [bid for bid in bids if bid.item == item]
+        elif user:
+            return [bid for bid in bids if bid.user == user]
+        else:
+            return bids
 
 
 class BidResource(Resource):
@@ -41,6 +56,10 @@ class BidResource(Resource):
                 return {'status': 'ok', 'msg': 'bid found', 'data': bid.to_primitive()}, http.HTTPStatus.OK
             else:
                 return {'status': 'error', 'msg': 'bid not found', 'data': None}, http.HTTPStatus.NOT_FOUND
+
+        except KeyError:
+            logger.error(f'error {repr(e)}')
+            return {'status': 'error', 'msg': 'Miss item or user on payload'}, http.HTTPStatus.BAD_REQUEST
 
         except Exception as e:
             logger.error(f'Unexpected error {repr(e)}')
@@ -61,6 +80,10 @@ class BidResource(Resource):
             else:
                 lock.release()
                 return {'status': 'error', 'msg': 'bid not found'}, http.HTTPStatus.NOT_FOUND
+
+        except KeyError:
+            logger.error(f'error {repr(e)}')
+            return {'status': 'error', 'msg': 'Miss item or user on payload'}, http.HTTPStatus.BAD_REQUEST
 
         except Exception as e:
             logger.error(f'Unexpected error {repr(e)}')
@@ -105,6 +128,3 @@ class BidResource(Resource):
                 return index, bid
 
         return None, None
-
-    def get_bid_by_id(self, bid_id):
-        return bids[bid_id] if bid_id < len(bids) else None

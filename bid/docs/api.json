@@ -197,9 +197,32 @@
         "tags": [
           "Bid"
         ],
-        "summary": "Get all bids",
+        "summary": "Get all bids or all bids of a user or all bids on a item",
         "produces": [
           "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "payload",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "user",
+                "item"
+              ],
+              "properties": {
+                "user": {
+                  "type": "string",
+                  "example": "user1 or None"
+                },
+                "item": {
+                  "type": "string",
+                  "example": "item1 or None"
+                }
+              }
+            }
+          }
         ],
         "responses": {
           "200": {
