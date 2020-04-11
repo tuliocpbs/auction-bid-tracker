@@ -2,6 +2,8 @@
 
 Auction system which will allow users to concurrently bid on items for sale.
 
+> PS.: This auction allows the user to bid with a somaller value than the last one.
+
 ### Infrastructure
 
 Each of the container above has a propose.
@@ -66,3 +68,13 @@ Open Docker Desktop -> Select Resources -> Set more memory
 > Wait for Kibana be up
 
 ###### Access `APM app on Kibana ` : <http://localhost:5601/app/apm>
+
+## Concurrency approach
+
+In this project to deal with the concurrency caused by many users doing bids at the same time, was necessary create a lock on **bids** variable. I used a solution provide by Python's standart library, **threading**.
+
+This example explains why this concurrency problem happens:
+1. Two users (Ross and Chandler) try to do a bid on the same item (jewel) and in the same time.
+2. To different threads get the all bids on this item.
+3. The first thread (Ross's bid) update **bids** variable with Ross's bid.
+4. The second thread (Chandler's bid) update **bids** variable with Chandler's bid, but based on the old data that **bids** contains, and this data is all bids without Ross's bid. Because of that, the aplication loses Ross's bid.
