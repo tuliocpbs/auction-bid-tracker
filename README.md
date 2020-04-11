@@ -2,7 +2,7 @@
 
 Auction system which will allow users to concurrently bid on items for sale.
 
-> PS.: This auction allows the user to bid with a somaller value than the last one.
+> PS.: This auction allows the user to bid with a somaller value than the last one. =D
 
 ### Infrastructure
 
