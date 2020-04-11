@@ -30,7 +30,7 @@ class AuctionFlow(TaskSet):
         logger.info('New bid...')
         logger.info(str(self.client.cookies.get('token')))
         bid = self.create_bid_on_item()
-        response = self.client.put("/api/v1/bid",
+        response = self.client.put("/v1/bid",
                                    headers={"Content-Type": "application/json",
                                             "Api-Key": os.environ.get('API_KEY', '')},
                                    json=bid)
