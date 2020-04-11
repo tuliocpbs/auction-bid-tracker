@@ -14,6 +14,19 @@ services:
       - 5000:80
     restart: always
 
+    bid:
+      build: 
+        context: ./bid
+        dockerfile: Dockerfile
+      command: gunicorn --chdir bid -c bid/gconfig.py src.app:app --reload
+      volumes:
+        - .:/app
+      env_file:
+        - ./bid/env.example
+      ports:
+        - 5000:80
+      restart: always
+
   locustio:
     build: 
       context: ./locustio
