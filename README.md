@@ -45,6 +45,10 @@ Each of the container above has a propose.
 - **For mac OS**:
 Open Docker Desktop -> Select Resources -> Set more memory
 
+### Data Structure
+
+In this project the *user* and *item* are represented by a **string**, and *value* by a **integer number**.
+
 ### How to interact with the Application
 
 ##### Auction's API
