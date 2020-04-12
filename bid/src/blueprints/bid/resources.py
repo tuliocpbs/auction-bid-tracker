@@ -3,7 +3,7 @@ import json
 from threading import Lock
 
 from flask import jsonify, request
-from flask_restful import Resource, Api
+from flask_restful import Resource
 from schematics.exceptions import ModelValidationError
 
 from src.utils.logger import logger
@@ -21,9 +21,10 @@ class BidsResource(Resource):
 
     def get(self):
         try:
-            payload = request.get_json() or dict()
+            user = request.args.get('user', None)
+            item = request.args.get('item', None)
 
-            bids_found = self.get_bids_by_item_or_user(item=payload.get('item', None), user=payload.get('user', None))
+            bids_found = self.get_bids_by_item_or_user(item=item, user=user)
 
             return {'status': 'ok', 'msg': 'bids found', 'data': [i.to_primitive() for i in bids_found]}, http.HTTPStatus.OK
 
@@ -48,14 +49,15 @@ class BidResource(Resource):
 
     def get(self):
         try:
-            payload = request.get_json()
+            user = request.args.get('user', None)
+            item = request.args.get('item', None)
 
-            index, bid = self.get_bid_by_item_and_user(item=payload['item'], user=payload['user'])
+            index, bid = self.get_bid_by_item_and_user(item=item, user=user)
 
             if bid:
                 return {'status': 'ok', 'msg': 'bid found', 'data': bid.to_primitive()}, http.HTTPStatus.OK
             else:
-                return {'status': 'error', 'msg': 'bid not found', 'data': None}, http.HTTPStatus.NOT_FOUND
+                return {'status': 'ok', 'msg': 'bid not found', 'data': None}, http.HTTPStatus.NOT_FOUND
 
         except KeyError:
             logger.error(f'error {repr(e)}')
@@ -67,11 +69,12 @@ class BidResource(Resource):
 
     def delete(self):
         try:
-            payload = request.get_json()
+            user = request.args.get('user', None)
+            item = request.args.get('item', None)
 
             lock.acquire()
 
-            index, bid = self.get_bid_by_item_and_user(item=payload['item'], user=payload['user'])
+            index, bid = self.get_bid_by_item_and_user(item=item, user=user)
 
             if bid:
                 del bids[index]
@@ -79,7 +82,7 @@ class BidResource(Resource):
                 return {'status': 'ok', 'msg': 'bid deleted'}, http.HTTPStatus.OK
             else:
                 lock.release()
-                return {'status': 'error', 'msg': 'bid not found'}, http.HTTPStatus.NOT_FOUND
+                return {'status': 'ok', 'msg': 'bid not found'}, http.HTTPStatus.NOT_FOUND
 
         except KeyError:
             logger.error(f'error {repr(e)}')
