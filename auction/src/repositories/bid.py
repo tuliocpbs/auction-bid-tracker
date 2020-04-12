@@ -11,13 +11,13 @@ class Bid:
     @classmethod
     def get_bids(cls, item=None, user=None):
         apikey = ApiKeySettings()
-        body = cls.create_payload(item, user)
+        params = cls.create_params(item, user)
 
         try:
-            resp = requests.get("http://localhost:5001/v1/bid",
+            resp = requests.get("http://bid/v1/bids",
                                 headers={"Content-Type": "application/json",
                                         "Api-Key": apikey.API_KEY},
-                                json=body,
+                                params=params,
                                 timeout=30)
 
             if not resp.ok:
@@ -33,7 +33,7 @@ class Bid:
             return []
 
     @classmethod
-    def create_payload(cls, item, user):
+    def create_params(cls, item, user):
         if item and user:
             return {'item':item, 'user':user}
         elif item:
