@@ -47,7 +47,9 @@ Open Docker Desktop -> Select Resources -> Set more memory
 
 ### How to interact with the Application
 
-###### Access `Auction's swagger doc` : <http://localhost:5000/docs>
+###### Auction's API
+
+Access `Auction's swagger doc` : <http://localhost:5000/docs>
 
 > To user any requests insert the Api-Key value on Authorize field
 
@@ -55,13 +57,24 @@ Open Docker Desktop -> Select Resources -> Set more memory
 |------------|-------|
 |Api-Key |secret-api-key |
 
-###### Access `Bid's swagger doc` : <http://localhost:5001/docs>
+Endpoints available:
+- /api/v1/bidsofanitem (GET)
+- /api/v1/currentlywinnig (GET)
+- /api/v1/itemswithuserbids (GET)
+
+###### Bid's RestAPI
+
+Access `Bid's swagger doc` : <http://localhost:5001/docs>
 
 > To user any requests insert the Api-Key value on Authorize field
 
 | Credentials | Value|
 |------------|-------|
 |Api-Key |secret-api-key |
+
+Endpoints available:
+- /v1/bid (GET/DELETE/PUT)
+- /v1/bids (GET)
 
 ### Monitoring with Elastic APM
 
