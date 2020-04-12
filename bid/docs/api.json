@@ -85,26 +85,16 @@
         ],
         "parameters": [
           {
-            "name": "payload",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "required": [
-                "function",
-                "arguments"
-              ],
-              "properties": {
-                "user": {
-                  "type": "string",
-                  "example": "user1"
-                },
-                "item": {
-                  "type": "string",
-                  "example": "item1"
-                }
-              }
-            }
+            "in": "query",
+            "name": "user",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "item",
+            "type": "string",
+            "required": true
           }
         ],
         "responses": {
@@ -143,26 +133,16 @@
         ],
         "parameters": [
           {
-            "name": "payload",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "required": [
-                "user",
-                "item"
-              ],
-              "properties": {
-                "user": {
-                  "type": "string",
-                  "example": "user1"
-                },
-                "item": {
-                  "type": "string",
-                  "example": "item1"
-                }
-              }
-            }
+            "in": "query",
+            "name": "user",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "item",
+            "type": "string",
+            "required": true
           }
         ],
         "responses": {
@@ -203,25 +183,14 @@
         ],
         "parameters": [
           {
-            "name": "payload",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "required": [
-                "user",
-                "item"
-              ],
-              "properties": {
-                "user": {
-                  "type": "string",
-                  "example": "user1 or None"
-                },
-                "item": {
-                  "type": "string",
-                  "example": "item1 or None"
-                }
-              }
-            }
+            "in": "query",
+            "name": "user",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "item",
+            "type": "string"
           }
         ],
         "responses": {

@@ -8,7 +8,7 @@ Auction system which will allow users to concurrently bid on items for sale.
 
 Each of the container above has a propose.
 
-- Locust: Simulate user's bids and execute a load testing to measure performance of Auction API
+- Locust: Simulate user's bids and execute a load testing to measure performance of Bid API
 - Auction: Responsible for auction's endpoints such as 
 - Bid: RestAPI to interacte (create, update, delete, get, list) with bids
 - APM elastic/Elasticsearch/Kibana: Implement APM to measure performance on aplications
@@ -47,7 +47,9 @@ Open Docker Desktop -> Select Resources -> Set more memory
 
 ### How to interact with the Application
 
-###### Auction's API
+##### Auction's API
+
+API responsible for provide information about the auction, such as 
 
 Access `Auction's swagger doc` : <http://localhost:5000/docs>
 
@@ -62,7 +64,9 @@ Endpoints available:
 - /api/v1/currentlywinnig (GET)
 - /api/v1/itemswithuserbids (GET)
 
-###### Bid's RestAPI
+##### Bid's RestAPI
+
+API responsible for create, delete and provide information about bids.
 
 Access `Bid's swagger doc` : <http://localhost:5001/docs>
 

@@ -22,21 +22,10 @@
         ],
         "parameters": [
           {
-            "name": "payload",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "required": [
-                "item"
-              ],
-              "properties": {
-                "item": {
-                  "type": "string",
-                  "example": "item1"
-                }
-              }
-            }
+            "in": "query",
+            "name": "item",
+            "type": "string",
+            "required": true
           }
         ],
         "responses": {
@@ -71,21 +60,10 @@
         ],
         "parameters": [
           {
-            "name": "payload",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "required": [
-                "item"
-              ],
-              "properties": {
-                "item": {
-                  "type": "string",
-                  "example": "item1"
-                }
-              }
-            }
+            "in": "query",
+            "name": "item",
+            "type": "string",
+            "required": true
           }
         ],
         "responses": {
@@ -120,21 +98,10 @@
         ],
         "parameters": [
           {
-            "name": "payload",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "required": [
-                "user"
-              ],
-              "properties": {
-                "user": {
-                  "type": "string",
-                  "example": "user1"
-                }
-              }
-            }
+            "in": "query",
+            "name": "user",
+            "type": "string",
+            "required": true
           }
         ],
         "responses": {
