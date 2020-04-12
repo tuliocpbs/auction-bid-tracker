@@ -47,7 +47,14 @@ Open Docker Desktop -> Select Resources -> Set more memory
 
 ### Data Structure
 
-In this project the *user* and *item* are represented by a **string**, and *value* by a **integer number**.
+The datas structures used are:
+
+| Name | Data Structure|
+|------------|-------|
+|bid |user, item, value |
+|user |string |
+|item |string |
+|value |integer |
 
 ### How to interact with the Application
 
