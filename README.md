@@ -86,6 +86,12 @@ Endpoints available:
 
 ###### Access `APM app on Kibana ` : <http://localhost:5601/app/apm>
 
+### Perfomance test with Locustio
+
+Test the performance of Bid RestAPI with Locust
+
+###### Access `Locust ` : <http://localhost:8089/>
+
 ## Concurrency approach
 
 In this project to deal with the concurrency caused by many users doing bids at the same time, was necessary create a lock on **bids** variable. I used a solution provide by Python's standart library, **threading**.
