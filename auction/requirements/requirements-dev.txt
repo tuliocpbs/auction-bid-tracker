@@ -5,7 +5,7 @@ Flask-Cors==3.0.8
 flask-swagger-ui==3.20.9
 gunicorn==19.9.0
 ipdb==0.12.2
-ipython==7.5.0
+ipython==7.16.3
 pytest-flask==0.15.1
 python-json-logger==0.1.11
 requests==2.23.0
